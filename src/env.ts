@@ -5,6 +5,7 @@ declare namespace NodeJS {
     ACCESS_JWT_KEY: string;
     REFRESH_JWT_KEY: string;
     STRIPE_SECRET_KEY: string;
+    NGROK_AUTHTOKEN: string;
   }
 }
 

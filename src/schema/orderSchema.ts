@@ -1,9 +1,9 @@
 import z from "zod";
 
 export const createOrderSchema = z.object({
-  products: z.number().array(),
-  purchasedAt: z.date(),
-  status: z.enum(["Pending", "Completed"]),
+  products: z.string().array(),
+  purchasedAt: z.date().optional(),
+  status: z.string().default("Pending"),
 });
 
 export type createOrderType = z.infer<typeof createOrderSchema>;

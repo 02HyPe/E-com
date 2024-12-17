@@ -11,4 +11,5 @@ export const ProductSchema = new mongoose.Schema<Product>({
   productName: { type: String, required: true },
   price: { type: Number, required: true },
   stock: { type: Number, required: true },
+  __v: { type: Number, default: 0 },
 });

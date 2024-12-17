@@ -14,24 +14,20 @@ export const createOrder = asyncHandler(
     res: Response,
     next: NextFunction
   ) => {
-    const { products, purchasedAt, status } = req.body;
+    const { products } = req.body;
     const email = req.email;
     const user = await UserModel.findOne({ email: email });
     if (!user) {
       throw next(new ErrorResponse(500, "error with user"));
     }
-    const productDtls = await ProductModel.find({ $in: products });
-    // let productDtls: object[] = [];
-    // products.forEach(async (product) => {
-    //   const productInfo = await ProductModel.findOne({ _id: product });
-    //   if (!productInfo) {
-    //     throw next(new ErrorResponse(404, "product availability error"));
-    //   }
-    //   productDtls.push({ productInfo });
-    // });
+    const productDtls = await ProductModel.find({ _id: { $in: products } });
     const orders = new OrderModel({
+      user: user._id,
       products: productDtls,
     });
+    await orders.save();
     console.log(productDtls);
+
+    res.json({ msg: " order created " });
   }
 );

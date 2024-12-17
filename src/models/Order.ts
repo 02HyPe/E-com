@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
 
 export interface Order {
+  user: mongoose.Types.ObjectId;
   products: object[];
   purchasedAt: Date;
   status: string;
   deliveredAt: Date;
+  __v: number;
 }
 
 export const OrderSchema = new mongoose.Schema<Order>({
