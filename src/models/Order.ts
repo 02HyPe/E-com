@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 
 export interface Order {
-  user: mongoose.Types.ObjectId;
+  user?: mongoose.Types.ObjectId;
   products: object[];
+  address: string;
   purchasedAt: Date;
   status: string;
   deliveredAt: Date;
@@ -10,7 +11,9 @@ export interface Order {
 }
 
 export const OrderSchema = new mongoose.Schema<Order>({
+  user: { type: String, ref: "user", required: true },
   products: { type: [Object], required: true },
+  address: { type: String, required: true },
   purchasedAt: { type: Date, required: true, default: Date.now },
   status: {
     type: String,

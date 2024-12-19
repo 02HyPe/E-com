@@ -6,6 +6,7 @@ declare namespace NodeJS {
     REFRESH_JWT_KEY: string;
     STRIPE_SECRET_KEY: string;
     NGROK_AUTHTOKEN: string;
+    SIGN_WEBHOOK_SECRET: string;
   }
 }
 

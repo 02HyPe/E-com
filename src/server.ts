@@ -6,13 +6,19 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import { errorHandler } from "./utils/errorHandler";
 import userRoutes from "./routes/user";
-import paymentRoutes from "./routes/payment";
 import productRoutes from "./routes/product";
 import orderRoutes from "./routes/order";
 
 const app = express();
 
-app.use(express.json());
+app.use((req, res, next) => {
+  if (req.originalUrl === "/order/paymentupdate") {
+    next();
+  } else {
+    express.json()(req, res, next);
+  }
+});
+
 app.use(cookieParser());
 
 (async () => {
@@ -34,9 +40,12 @@ app.use(cookieParser());
   }
 })();
 
+app.get("/", (req, res) => {
+  res.send("api is healthy");
+});
+
 app.use("/order", orderRoutes);
 app.use("/product", productRoutes);
-app.use("/payment", paymentRoutes);
 app.use("/user", userRoutes);
 
 app.use(errorHandler);
